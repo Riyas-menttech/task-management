@@ -54,10 +54,10 @@ export class ConfigService {
     switch (environment) {
       case this.ENVIRONMENT.DEVELOPMENT :
         return this.development;
-      case this.ENVIRONMENT.TEST :
-        return this.test;
-      case this.ENVIRONMENT.PRODUCTION:
-        return this.production;
+      // case this.ENVIRONMENT.TEST :
+      //   return this.test;
+      // case this.ENVIRONMENT.PRODUCTION:
+      //   return this.production;
       default:
         return this.development;
     }
