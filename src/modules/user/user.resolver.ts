@@ -1,7 +1,7 @@
 import { Resolver, Query, Mutation, Args, Int, Context } from '@nestjs/graphql';
 import { UserService } from './user.service';
 import { User } from './entities/user.entity';
-import { CreateUserInput } from './dto/create-user.input';
+// import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
 @Resolver(() => User)
 export class UserResolver {
@@ -21,11 +21,11 @@ export class UserResolver {
   //   return this.userService.signIn({email, password});
   // }
   @Query(()=>[User])
-  findAll() {
+  findAllUser() {
     return this.userService.findAll();
   }
-  @Query(() => User, { name: 'user' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  @Query(() => User,)
+  findneUser(@Args('id', { type: () => Int }) id: number) {
     return this.userService.findOne(id);
   }
   @Mutation(() => User)

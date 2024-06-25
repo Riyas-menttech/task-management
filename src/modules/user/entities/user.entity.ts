@@ -11,8 +11,8 @@ export const BCRYPT_HASH_ROUNDS=10
 registerEnumType(UserRole, {
   name: 'UserRole',
 });
-@ObjectType()
 @Entity()
+@ObjectType()
 export class User {
 
   @Field(() => Int)

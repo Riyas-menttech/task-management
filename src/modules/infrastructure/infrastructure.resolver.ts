@@ -9,18 +9,18 @@ export class InfrastructureResolver {
   constructor(private readonly infrastructureService: InfrastructureService) {}
 
   @Mutation(() => Infrastructure)
-  createInfrastructure(@Args('createInfrastructureInput') createInfrastructureInput: CreateInfrastructureInput) {
+  async createInfrastructure(@Args('createInfrastructureInput') createInfrastructureInput: CreateInfrastructureInput) {
     console.log(createInfrastructureInput,"reesolver create ")
-    return this.infrastructureService.create(createInfrastructureInput);
+    return await this.infrastructureService.create(createInfrastructureInput);
   }
 
-  @Query(() => [Infrastructure], { name: 'infrastructure' })
-  findAll() {
+  @Query(() => [Infrastructure])
+  findAllInfra() {
     return this.infrastructureService.findAll();
   }
 
-  @Query(() => Infrastructure, { name: 'infrastructure' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  @Query(() => Infrastructure)
+  findOneInfra(@Args('id', { type: () => Int }) id: number) {
     return this.infrastructureService.findOne(id);
   }
 
