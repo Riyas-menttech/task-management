@@ -1,11 +1,21 @@
 import { Injectable } from '@nestjs/common';
 import { CreateInfrastructureInput } from './dto/create-infrastructure.input';
 import { UpdateInfrastructureInput } from './dto/update-infrastructure.input';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Infrastructure } from './entities/infrastructure.entity';
+import { Repository } from 'typeorm';
+
 
 @Injectable()
 export class InfrastructureService {
-  create(createInfrastructureInput: CreateInfrastructureInput) {
-    return 'This action adds a new infrastructure';
+
+constructor(@InjectRepository(Infrastructure) private InfraRepo :Repository<Infrastructure>){}
+
+  async create(createInfrastructureInput: CreateInfrastructureInput) {
+    console.log(createInfrastructureInput,"service create")
+    const saved = await this.InfraRepo.save(createInfrastructureInput)
+    console.log({...saved},"saved <<<<")
+    return {...saved}
   }
 
   findAll() {

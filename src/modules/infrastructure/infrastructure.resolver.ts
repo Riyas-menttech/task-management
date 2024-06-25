@@ -10,6 +10,7 @@ export class InfrastructureResolver {
 
   @Mutation(() => Infrastructure)
   createInfrastructure(@Args('createInfrastructureInput') createInfrastructureInput: CreateInfrastructureInput) {
+    console.log(createInfrastructureInput,"reesolver create ")
     return this.infrastructureService.create(createInfrastructureInput);
   }
 
