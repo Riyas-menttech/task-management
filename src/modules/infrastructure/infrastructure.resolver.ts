@@ -14,13 +14,13 @@ export class InfrastructureResolver {
     return this.infrastructureService.create(createInfrastructureInput);
   }
 
-  @Query(() => [Infrastructure], { name: 'infrastructure' })
-  findAll() {
-    return this.infrastructureService.findAll();
+  @Query(() => [Infrastructure])
+  findAllInfra() {
+    return this.infrastructureService.findAllInfra();
   }
 
-  @Query(() => Infrastructure, { name: 'infrastructure' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  @Query(() => Infrastructure)
+  FindOneInfra(@Args('id', { type: () => Int }) id: number) {
     return this.infrastructureService.findOne(id);
   }
 

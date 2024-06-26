@@ -1,4 +1,5 @@
 import { InputType, Int, Field } from '@nestjs/graphql';
+import { User } from 'src/modules/user/entities/user.entity';
 
 @InputType()
 export class CreateInfrastructureInput {
@@ -9,8 +10,9 @@ export class CreateInfrastructureInput {
   infra_name: string;
 
   @Field(() => [Int], { nullable: true })
-  infra_mem: number[];
+  infra_mem: User[];
 
   @Field(() => [Int], { nullable: true })
-  owners: number[];
+  owners: User[];
 }
+ 
