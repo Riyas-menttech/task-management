@@ -16,11 +16,11 @@ export class InfrastructureResolver {
 
   @Query(() => [Infrastructure])
   findAllInfra() {
-    return this.infrastructureService.findAll();
+    return this.infrastructureService.findAllInfra();
   }
 
   @Query(() => Infrastructure)
-  findOneInfra(@Args('id', { type: () => Int }) id: number) {
+  FindOneInfra(@Args('id', { type: () => Int }) id: number) {
     return this.infrastructureService.findOne(id);
   }
 

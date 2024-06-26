@@ -1,6 +1,6 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
 import { User } from '../../user/entities/user.entity'; // Assuming the User entity is defined in user.entity.ts
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, } from 'typeorm';
 
 @ObjectType()
 @Entity()
@@ -24,14 +24,17 @@ export class Infrastructure {
   infra_name: string;
 
 
-  @Field(() => [Int], { nullable: true })
+  @Field(() => [User], { nullable: true })
   @Column('simple-array', { nullable: true })
-  infra_mem: number[]; // This column stores an array of user.id values
+  infra_mem: User[]; // This column stores an array of user.id values
 
  
-  @Field(() => [Int], { nullable: true })
+  @Field(() => [User], { nullable: true })
   @Column('simple-array', { nullable: true })
-  owners: number[]; // This column stores an array of user.id values
+  owners: User[]; // This column stores an array of user.id values
+
+  
 
   
 }
+ 

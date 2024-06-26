@@ -3,27 +3,68 @@ import { CreateInfrastructureInput } from './dto/create-infrastructure.input';
 import { UpdateInfrastructureInput } from './dto/update-infrastructure.input';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Infrastructure } from './entities/infrastructure.entity';
-import { Repository } from 'typeorm';
-
+import { In, Repository } from 'typeorm';
+import { User } from '../user/entities/user.entity';
 
 @Injectable()
 export class InfrastructureService {
-
-constructor(@InjectRepository(Infrastructure) private InfraRepo :Repository<Infrastructure>){}
+  constructor(
+    @InjectRepository(Infrastructure)
+    private InfraRepo: Repository<Infrastructure>,
+    @InjectRepository(User) private userRepository: Repository<User>,
+  ) {}
 
   async create(createInfrastructureInput: CreateInfrastructureInput) {
-    console.log(createInfrastructureInput,"service create")
-    const saved = await this.InfraRepo.save(createInfrastructureInput)
-    console.log({...saved},"saved <<<<")
-    return {...saved}
+    const saved = await this.InfraRepo.save(createInfrastructureInput);
+    return saved;
   }
 
-  findAll() {
-    return `This action returns all infrastructure`;
+  async findAllInfra() {
+    const AllInfra = await this.InfraRepo.find();
+    for (const infra of AllInfra) {
+      
+      if (infra.owners) {
+        const ownerUsers = await this.userRepository.findBy({
+          id: In(infra.owners),
+        });
+  
+        infra.owners = ownerUsers;
+      }
+      if (infra.infra_mem) {
+        const infra_mem = await this.userRepository.findBy({
+          id: In(infra.infra_mem),
+        });
+  
+        infra.infra_mem = infra_mem;
+      }
+    }
+
+    return AllInfra
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} infrastructure`;
+  async findOne(id: number) {
+    const infra = await this.InfraRepo.findOne({
+      where: { id },
+      // relations: ['owner'],
+    });
+    if (infra.owners) {
+      const ownerUsers = await this.userRepository.findBy({
+        id: In(infra.owners),
+      });
+      console.log(ownerUsers, 'service find one ');
+
+      infra.owners = ownerUsers;
+    }
+    if (infra.infra_mem) {
+      const infra_mem = await this.userRepository.findBy({
+        id: In(infra.infra_mem),
+      });
+      console.log(infra_mem, 'service find one ');
+
+      infra.infra_mem = infra_mem;
+    }
+
+    return infra;
   }
 
   update(id: number, updateInfrastructureInput: UpdateInfrastructureInput) {
