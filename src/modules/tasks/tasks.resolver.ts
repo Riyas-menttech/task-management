@@ -10,15 +10,19 @@ export class TasksResolver {
 
   @Mutation(() => Task)
   createTask(@Args('createTaskInput') createTaskInput: CreateTaskInput) {
+    console.log(createTaskInput,'logis here');
+    
     return this.tasksService.create(createTaskInput);
   }
 
-  @Query(() => [Task], { name: 'tasks' })
-  findAll() {
-    return this.tasksService.findAll();
+  @Query(() => [Task])
+  async  findAll() {
+    const data = await this.tasksService.findAll();
+ 
+     return data
   }
 
-  @Query(() => Task, { name: 'task' })
+  @Query(() => Task)
   findOne(@Args('id', { type: () => Int }) id: number) {
     return this.tasksService.findOne(id);
   }
